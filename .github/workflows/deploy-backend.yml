@@ -1,11 +1,10 @@
-name: Fly Deploy
+name: deploy backend
 on:
   push:
     branches:
       - main
 jobs:
-  deploy:
-    name: Deploy app
+  deploy-backend:
     runs-on: ubuntu-latest
     concurrency: deploy-group # optional: ensure only one action runs at a time
     steps:
