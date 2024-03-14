@@ -38,11 +38,7 @@ if (config.env === 'production') {
   app.use('/auth', authLimiter);
 }
 
-app.get('/status', (_req, res) => {
-  res.status(200).end();
-});
-
-app.head('/status', (_req, res) => {
+app.get(['/status', '/api/status'], (_req, res) => {
   res.status(200).end();
 });
 
