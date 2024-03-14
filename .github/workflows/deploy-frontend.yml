@@ -17,8 +17,12 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: 'deploy-frontend'
   cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: ./frontend
 
 jobs:
   # Single deploy job since we're just deploying

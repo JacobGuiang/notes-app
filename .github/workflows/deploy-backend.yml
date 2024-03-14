@@ -3,10 +3,15 @@ on:
   push:
     branches:
       - main
+
+defaults:
+  run:
+    working-directory: ./backend
+
 jobs:
   deploy-backend:
     runs-on: ubuntu-latest
-    concurrency: deploy-group # optional: ensure only one action runs at a time
+    concurrency: deploy-backend # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
