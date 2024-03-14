@@ -23,5 +23,5 @@ const envVars = result.data;
 
 export default {
   env: envVars.NODE_ENV,
-  port: envVars.PORT,
+  port: envVars.PORT || 8080,
 };
