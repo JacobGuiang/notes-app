@@ -9,11 +9,13 @@ const envVarsSchema = z
     NODE_ENV: z.enum(['production', 'development', 'test']),
     PORT: z.number().int().safe().or(z.string()).pipe(z.coerce.number()),
   })
-  .required({ NODE_ENV: true });
+  .partial();
 
-type envVarsSchema = z.infer<typeof envVarsSchema>;
+const requiredEnvVarsSchema = envVarsSchema.required({ NODE_ENV: true });
 
-const result = envVarsSchema.safeParse(process.env);
+type requiredEnvVarsSchema = z.infer<typeof requiredEnvVarsSchema>;
+
+const result = requiredEnvVarsSchema.safeParse(process.env);
 
 if (!result.success) {
   throw new Error(`Config validation error: ${result.error}`);
