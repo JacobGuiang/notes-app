@@ -3,13 +3,18 @@ import express from 'express';
 import pino from 'pino-http';
 import helmet from 'helmet';
 import cors from 'cors';
-import mongoSanitize from 'express-mongo-sanitize';
 import compression from 'compression';
-import authLimiter from './middlewares/rateLimiter';
+import { rateLimiter, errorConverter, errorHandler } from './middlewares';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import ApiError from './utils/ApiError';
-import { errorConverter, errorHandler } from './middlewares/error';
 import routes from './routes';
+import cookieParser from 'cookie-parser';
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: { id: number; username: string };
+  }
+}
 
 const app = express();
 
@@ -26,9 +31,6 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
-// sanitize request data
-app.use(mongoSanitize());
-
 // gzip compression
 app.use(compression());
 
@@ -36,9 +38,11 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
+app.use(cookieParser(config.cookieSecret));
+
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
-  app.use('/auth', authLimiter);
+  app.use('/auth', rateLimiter);
 }
 
 // api routes

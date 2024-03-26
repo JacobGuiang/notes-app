@@ -9,17 +9,13 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   res.status(StatusCodes.CREATED).send(user);
 });
 
+const getUser = (req: Request, res: Response) => {
+  res.send(req.user);
+};
+
 // const getUsers = catchAsync(async (req: Request, res: Response) => {
 //   const result = await userService.getUsers();
 //   res.send(result);
-// });
-
-// const getUser = catchAsync(async (req: Request, res: Response) => {
-//   const user = await userService.getUserById(Number(req.params.userId));
-//   if (!user) {
-//     throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
-//   }
-//   res.send(user);
 // });
 
 // const updateUser = catchAsync(async (req: Request, res: Response) => {
@@ -35,4 +31,4 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 //   res.status(StatusCodes.NO_CONTENT).send();
 // });
 
-export default { createUser };
+export default { createUser, getUser };

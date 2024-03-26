@@ -21,4 +21,6 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
+          COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
       - run: npm run prettier:check

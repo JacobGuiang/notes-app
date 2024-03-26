@@ -23,6 +23,7 @@
     "prettier:check": "concurrently \"npm:prettier:check:frontend\" \"npm:prettier:check:backend\""
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "cookie-session": "^2.1.0"
   }
 }

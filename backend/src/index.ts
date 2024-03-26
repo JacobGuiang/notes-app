@@ -1,7 +1,5 @@
 import app from './app';
-import config from './config/config';
-import logger from './config/logger';
-import db from './config/db';
+import { config, logger, db } from './config';
 
 const server = app.listen(config.port, () => {
   logger.info(`Listening to port ${config.port}`);

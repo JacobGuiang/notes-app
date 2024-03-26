@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import httpStatus from 'http-status-codes';
-import pick from '@/utils/pick';
-import ApiError from '@/utils/ApiError';
+import { ApiError, pick } from '@/utils';
 import { Request, Response, NextFunction } from 'express';
 
 const validate =
@@ -12,12 +11,12 @@ const validate =
 
     if (!result.success) {
       const errorMessage = result.error.issues
-        .map((issue) => issue.message)
+        .map((issue) => `${issue.path[1]} ${issue.message}`)
         .join(', ');
       return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
     }
     Object.assign(req, result.data);
-    return next();
+    next();
   };
 
 export default validate;
